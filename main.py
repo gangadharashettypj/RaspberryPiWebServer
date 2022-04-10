@@ -1,10 +1,12 @@
 import cv2
 from detecto.core import Model
-from flask import Flask, render_template, Response, request
+from flask import Flask, render_template, Response
 from camera import VideoCamera
+
 app = Flask(__name__)
 model = Model.load('model_weights_final.pth',
-                           ['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
+                   ['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
+
 
 @app.route('/')
 def index():
@@ -54,4 +56,3 @@ def video(command):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=3400)
-
