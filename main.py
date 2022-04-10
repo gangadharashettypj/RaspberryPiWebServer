@@ -3,7 +3,8 @@ from detecto.core import Model
 from flask import Flask, render_template, Response, request
 from camera import VideoCamera
 app = Flask(__name__)
-
+model = Model.load('model_weights_final.pth',
+                           ['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
 
 @app.route('/')
 def index():
@@ -26,8 +27,6 @@ def video_feed():
 @app.route('/video/<command>')
 def video(command):
     if command == "CAPTURE":
-        model = Model.load('model_weights_final.pth',
-                           ['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
 
         cap = cv2.VideoCapture(0)
         cap.set(3, 640)
