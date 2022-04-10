@@ -1,5 +1,5 @@
-import cv2
-from detecto.core import Model
+# import cv2
+# from detecto.core import Model
 from flask import Flask, render_template, Response
 from camera import VideoCamera
 
