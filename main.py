@@ -4,8 +4,8 @@ from flask import Flask, render_template, Response
 from camera import VideoCamera
 
 app = Flask(__name__)
-model = Model.load('model_weights_final.pth',
-                   ['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
+# model = Model.load('model_weights_final.pth',
+#                    ['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
 
 
 @app.route('/')
@@ -30,25 +30,28 @@ def video_feed():
 def video(command):
     if command == "CAPTURE":
 
-        cap = cv2.VideoCapture(0)
-        cap.set(3, 640)
-        cap.set(4, 480)
-        ret, img = cap.read()
-        image = cv2.flip(img, 1)
-        labels, boxes, scores = model.predict(image)
-
-        print(labels[0])
-        print(scores[0])
+        # cap = cv2.VideoCapture(0)
+        # cap.set(3, 640)
+        # cap.set(4, 480)
+        # ret, img = cap.read()
+        # image = cv2.flip(img, 1)
+        # labels, boxes, scores = model.predict(image)
+        #
+        # print(labels[0])
+        # print(scores[0])
         description = ""
         title = ""
-        if labels[0] == 'Black sigatoka disease':
-            description = 'Pesticide: Thlophanate metryl (1g / 1 Litre of H2O) or Thlophanate methyle (1g / 1 liter of H2O'
-            title = 'Disease: Black Sigatoka,  Score: ' + str(scores[0])
-        elif labels[0] == 'Banana Bacterial Wilt':
-            description = 'Spraying of chlorothanoil (0.2%) and Bavistin (1%) 4 times at 15 days interval'
-            title = 'Disease: Anthracnose,  Score: ' + str(scores[0])
-        else:
-            title = 'Disease: No Disease,  Score: ' + str(scores[0])
+        # if labels[0] == 'Black sigatoka disease':
+        #     description = 'Pesticide: Thlophanate metryl (1g / 1 Litre of H2O) or Thlophanate methyle (1g / 1 liter of H2O'
+        #     title = 'Disease: Black Sigatoka,  Score: ' + str(scores[0])
+        # elif labels[0] == 'Banana Bacterial Wilt':
+        #     description = 'Spraying of chlorothanoil (0.2%) and Bavistin (1%) 4 times at 15 days interval'
+        #     title = 'Disease: Anthracnose,  Score: ' + str(scores[0])
+        # else:
+        #     title = 'Disease: No Disease,  Score: ' + str(scores[0])
+
+
+        title = 'Disease: No Disease,  Score: '
         return render_template('index.html', label=title, description=description)
     else:
         return render_template('index.html', label='')
