@@ -1,4 +1,3 @@
-import cv2
 from detecto.core import Model
 import os
 from detecto import utils, visualize
