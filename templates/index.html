@@ -1,22 +1,23 @@
-<!--
-   index.html
-   
--->
-
 <html>
   <head>
-    <title>MJRoBot Lab Live Streaming</title>
-    <link rel="stylesheet" href='../static/style.css'/>
+    <title>Mod1</title>
+    <style>
+	img {
+  	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+	width: 35%
+	}
+    </style>
   </head>
   <body>
-    <h1>MJRoBot Lab Live Streaming</h1>
-<!--    <h3><img src="{{ url_for('video_feed') }}" width="50%"></h3>-->
-    <hr>
+    <h1 align="center">Video Streaming Demonistration</h1>
+    <img id="bg" class="center" src="{{ url_for('video_feed') }}">
 
-    <form action="/main/capture">
-      <button name="forwardBtn" type="submit">Forward</button>
+    <form action="/video/CAPTURE">
+      <button name="forwardBtn" type="submit">Capture & Detect</button>
     </form>
-    <p>Taken: {{label}} : {{score}}</p>
-    <p> @2018 Developed by MJRoBot.org</p>
+    <p>{{label}}</p>
+    <p>{{description}}</p>
   </body>
 </html>
