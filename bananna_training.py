@@ -1,6 +1,6 @@
 import cv2
 from detecto.core import Model
-model = Model.load('model_weights_final.pth',['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
+model = Model.load('bananna_model.pth',['Banana Bacterial Wilt', 'Black sigatoka disease', 'Healthy'])
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
