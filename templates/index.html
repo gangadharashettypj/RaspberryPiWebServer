@@ -11,13 +11,6 @@
     </style>
   </head>
   <body>
-    <h1 align="center">Video Streaming Demonistration</h1>
     <img id="bg" class="center" src="{{ url_for('video_feed') }}">
-
-    <form action="/video/CAPTURE">
-      <button name="forwardBtn" type="submit">Capture & Detect</button>
-    </form>
-    <p>{{label}}</p>
-    <p>{{description}}</p>
   </body>
 </html>

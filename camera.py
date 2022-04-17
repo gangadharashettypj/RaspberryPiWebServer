@@ -14,4 +14,4 @@ class VideoCamera(object):
         image = cv2.resize(image, None, fx=ds_factor, fy=ds_factor, interpolation=cv2.INTER_AREA)
 
         ret, jpeg = cv2.imencode('.jpg', image)
-        return jpeg.tobytes()
+        return image, jpeg.tobytes()

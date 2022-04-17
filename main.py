@@ -1,13 +1,23 @@
-from flask import Flask, render_template, Response, send_file
+import io
+import os
+
+import numpy as np
+from flask import Flask, render_template, Response, send_file, make_response
 import flask
 import cv2
 import time
+
+from werkzeug.wsgi import FileWrapper
+
 from camera import VideoCamera
+import PIL.Image as Image
 
 app = Flask(__name__)
 # Setup camera
 
+image = None
 frame = None
+
 
 @app.route('/')
 def index():
@@ -15,9 +25,9 @@ def index():
 
 
 def gen(camera):
-    global frame
+    global image, frame
     while True:
-        frame = camera.get_frame()
+        image, frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
@@ -27,9 +37,21 @@ def video_feed():
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+
 @app.route('/video/capture')
 def video():
-    return Response(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n', mimetype='multipart/x-mixed-replace; boundary=frame')
+    global image, frame
+    directory = r'/Users/gangadharashetty/Code/GitHub/Mine/Video-Streaming-with-Flask/camWebServer/'
+    filename = 'savedImage.jpg'
+    os.chdir(directory)
+    print("Before saving image:")
+    print(os.listdir(directory))
+    cv2.imwrite(filename, image)
+    print(os.listdir(directory))
+    return send_file(directory + filename, mimetype='image/jpeg')
+    return Response(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n',
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=3400)
