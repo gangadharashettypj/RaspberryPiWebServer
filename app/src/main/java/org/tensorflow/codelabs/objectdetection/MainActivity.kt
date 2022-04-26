@@ -63,13 +63,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var tvDescription: TextView
     private lateinit var webPage: WebView
     private lateinit var captureImageFab: Button
-    private lateinit var detect: Button
     private lateinit var saveIp: Button
     private lateinit var inputImageView: ImageView
-    private lateinit var imgSampleOne: ImageView
-    private lateinit var imgSampleTwo: ImageView
-    private lateinit var imgSampleThree: ImageView
-    private lateinit var imgSampleFour: ImageView
     private lateinit var currentPhotoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,23 +73,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         captureImageFab = findViewById(R.id.captureImageFab)
         inputImageView = findViewById(R.id.imageView)
-        imgSampleOne = findViewById(R.id.imgSampleOne)
-        imgSampleTwo = findViewById(R.id.imgSampleTwo)
-        imgSampleThree = findViewById(R.id.imgSampleThree)
-        imgSampleFour = findViewById(R.id.imgSampleFour)
         ipAddress = findViewById(R.id.ipAddress)
         saveIp = findViewById(R.id.saveIp)
         webPage = findViewById(R.id.webPage)
-        detect = findViewById(R.id.detect)
         tvDescription = findViewById(R.id.tvDescription)
 
         captureImageFab.setOnClickListener(this)
-        imgSampleOne.setOnClickListener(this)
-        imgSampleTwo.setOnClickListener(this)
-        imgSampleThree.setOnClickListener(this)
-        imgSampleFour.setOnClickListener(this)
         saveIp.setOnClickListener(this)
-        detect.setOnClickListener(this)
         ipAddress.setText(getSharedPreferences("IPPPP", Context.MODE_PRIVATE).getString("IP", ""))
         webPage.settings.javaScriptEnabled = true
         webPage.settings.setAppCacheEnabled(false);
@@ -133,21 +118,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(inputImageView)
-            }
-            R.id.detect -> {
-                setViewAndDetect(inputImageView.drawable.toBitmap())
-            }
-            R.id.imgSampleOne -> {
-                setViewAndDetect(getSampleImage(R.drawable.healthy))
-            }
-            R.id.imgSampleTwo -> {
-                setViewAndDetect(getSampleImage(R.drawable.pestalotiopsis))
-            }
-            R.id.imgSampleThree -> {
-                setViewAndDetect(getSampleImage(R.drawable.sigatoka))
-            }
-            R.id.imgSampleFour -> {
-                setViewAndDetect(getSampleImage(R.drawable.cordana))
             }
             R.id.saveIp -> {
                 if (ipAddress.text.toString().isEmpty()) {
